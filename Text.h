@@ -16,8 +16,8 @@ class Text
 
   private:
 
-    string * text;
     void tokenize( );
+    string * text;
 
 };
 
