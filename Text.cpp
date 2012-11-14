@@ -1,3 +1,11 @@
+/* vim: set expandtab tabstop=2 shiftwidth=2 softtabstop=2; */
+
+/**
+ * A text in a corpus.
+ *
+ * @package     semanticcircle
+ * @license     http://www.apache.org/licenses/LICENSE-2.0.html
+ */
 
 
 #include <string>
@@ -9,23 +17,24 @@ using namespace std;
 using namespace boost;
 
 
-Text::Text( string * text ) : text( text )
+/*
+ * Set text, tokenize.
+ *
+ * @param string: The source stream.
+ * @return void.
+ */
+Text::Text( string text ) : text( text )
 {
   tokenize( );
 }
 
-
+/*
+ * Tokenize the source string.
+ *
+ * @return void.
+ */
 void Text::tokenize( )
 {
-
-  // Get separator, tokenize.
   char_separator<char> sep( " ():;,!?./\"*" );
-  tokenizer< char_separator<char> > tokens( *text, sep );
-
-  // Print tokens.
-  BOOST_FOREACH( const string& t, tokens )
-  {
-    cout << t << endl;
-  }
-
+  tokens = new tokenizer< char_separator<char> >( text, sep );
 }
