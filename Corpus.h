@@ -1,3 +1,4 @@
+
 /* vim: set expandtab tabstop=2 shiftwidth=2 softtabstop=2; */
 
 /**
@@ -21,28 +22,14 @@ class Corpus
 
   public:
 
-    /*
-     * Load an individual text file.
-     *
-     * @param const string: The filepath.
-     * @return void.
-     */
     void loadFile( const string path );
-
-    /*
-     * Load all text files in a directory.
-     *
-     * @param const string: The directory path.
-     * @return void.
-     */
     void loadDirectory( const string path );
+    void buildVocab( );
 
   private:
 
-    /*
-     * Vector of pointers to texts.
-     */
     vector<Text*> texts;
+    vector<string> vocab;
 
 };
 

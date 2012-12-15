@@ -1,3 +1,4 @@
+
 /* vim: set expandtab tabstop=2 shiftwidth=2 softtabstop=2; */
 
 /**
@@ -21,6 +22,8 @@ int main( )
   // cout << test1[2][4];
 
   Corpus c;
-  c.loadFile( "tolstoy/war-and-peace.txt" );
+  c.loadDirectory( "tolstoy" );
+  c.buildVocab( );
   return 0;
+
 }
