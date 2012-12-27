@@ -1,11 +1,9 @@
 
-/* vim: set expandtab tabstop=2 shiftwidth=2 softtabstop=2; */
+/* vim: set tabstop=2 shiftwidth=2 softtabstop=2 cc=64; */
 
 /**
  * A collection of texts.
- *
- * @package     semanticcircle
- * @license     http://www.apache.org/licenses/LICENSE-2.0.html
+ * @package semanticcircle
  */
 
 
@@ -17,17 +15,16 @@
 #include <algorithm>
 #include <dirent.h>
 #include <boost/foreach.hpp>
-#include <boost/unordered_set.hpp>
+#include <boost/tokenizer.hpp>
 #include "Text.h"
 #include "Corpus.h"
 using namespace std;
+using namespace boost;
 
 
 /*
  * Load an individual text file.
- *
  * @param const string: The filepath.
- * @return void.
  */
 void Corpus::loadFile( const string path )
 {
@@ -46,9 +43,7 @@ void Corpus::loadFile( const string path )
 
 /*
  * Load all text files in a directory.
- *
  * @param const string: The directory path.
- * @return void.
  */
 void Corpus::loadDirectory( const string path )
 {
@@ -57,7 +52,7 @@ void Corpus::loadDirectory( const string path )
   DIR* dir = opendir( path.c_str( ) );
   struct dirent *entry;
 
-  // Walk the directory.
+  // Create texts.
   while( (entry = readdir(dir)) != NULL )
   {
     const string f = path + "/" + entry->d_name;
@@ -68,36 +63,26 @@ void Corpus::loadDirectory( const string path )
 
 
 /*
- * Compute the unique vocabulary.
- *
- * @return void.
+ * Track word adjacencies and frequencies.
  */
 void Corpus::buildVocab( )
 {
 
-  // Set of seen tokens.
-  unordered_set<string> seen;
-
-  // Walk texts:
+  // Walk texts.
   BOOST_FOREACH( Text* text, texts )
   {
 
-    // Walk tokens:
-    BOOST_FOREACH( const string t, *(text->tokens) )
+    // Get text length.
+    int len = text->words.size( );
+
+    // Zipper triplets.
+    for( int i=1; i<len-1; i++ )
     {
-
-      // Add to vocab if unseen.
-      if( seen.find( t ) == seen.end( ) )
-      {
-        vocab.push_back( t );
-        seen.insert(t);
-      }
-
+      cout << text->words[i-1];
+      cout << text->words[i];
+      cout << text->words[i+1];
+      cout << endl;
     }
-
   }
-
-  cout << vocab.size( ) << endl;
-  cout << seen.size( ) << endl;
 
 }

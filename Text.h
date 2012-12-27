@@ -1,18 +1,15 @@
 
-/* vim: set expandtab tabstop=2 shiftwidth=2 softtabstop=2; */
+/* vim: set tabstop=2 shiftwidth=2 softtabstop=2 cc=64; */
 
 /**
- * A text in a corpus.
- *
- * @package     semanticcircle
- * @license     http://www.apache.org/licenses/LICENSE-2.0.html
+ * An individual text.
+ * @package semanticcircle
  */
 
 
 #ifndef TEXT_H
 #define TEXT_H
 
-#include <set>
 #include <string>
 #include <boost/tokenizer.hpp>
 using namespace std;
@@ -25,7 +22,8 @@ class Text
   public:
 
     Text( string text );
-    tokenizer< char_separator<char> > * tokens;
+    tokenizer< char_separator<char> > *tokens;
+    vector<string> words;
 
   private:
 

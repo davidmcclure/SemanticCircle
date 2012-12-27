@@ -1,11 +1,9 @@
 
-/* vim: set expandtab tabstop=2 shiftwidth=2 softtabstop=2; */
+/* vim: set tabstop=2 shiftwidth=2 softtabstop=2 cc=64; */
 
 /**
  * A collection of texts.
- *
- * @package     semanticcircle
- * @license     http://www.apache.org/licenses/LICENSE-2.0.html
+ * @package semanticcircle
  */
 
 
@@ -13,6 +11,7 @@
 #define CORPUS_H
 
 #include <vector>
+#include <boost/unordered_map.hpp>
 #include "Text.h"
 using namespace std;
 
@@ -29,7 +28,7 @@ class Corpus
   private:
 
     vector<Text*> texts;
-    vector<string> vocab;
+    unordered_map<string, vector<string> > vocab;
 
 };
 

@@ -1,11 +1,9 @@
 
-/* vim: set expandtab tabstop=2 shiftwidth=2 softtabstop=2; */
+/* vim: set tabstop=2 shiftwidth=2 softtabstop=2 cc=64; */
 
 /**
  * Harness.
- *
- * @package     semanticcircle
- * @license     http://www.apache.org/licenses/LICENSE-2.0.html
+ * @package semanticcircle
  */
 
 
@@ -15,14 +13,8 @@
 int main( )
 {
 
-  // unordered_map<int, unordered_map<int, int> > test1;
-  // unordered_map<int, int> test2;
-  // test2[4] = 5;
-  // test1[2] = test2;
-  // cout << test1[2][4];
-
   Corpus c;
-  c.loadDirectory( "tolstoy" );
+  c.loadFile( "texts/test.txt" );
   c.buildVocab( );
   return 0;
 
