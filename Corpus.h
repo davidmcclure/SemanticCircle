@@ -10,14 +10,13 @@
 #ifndef CORPUS_H
 #define CORPUS_H
 
-#include <vector>
 #include <boost/unordered_map.hpp>
 #include "Text.h"
 
 using namespace std;
 
 typedef unordered_map<string, unordered_map<string, int> >
-  vocabHash;
+  link_hash;
 
 
 class Corpus
@@ -25,14 +24,16 @@ class Corpus
 
   public:
 
+    friend class Circle;
     void loadFile( const string path );
     void loadDirectory( const string path );
-    void buildVocab( );
+    void buildLinks( );
 
   private:
 
     vector<Text*> texts;
-    vocabHash vocab;
+    set<string> vocab;
+    link_hash links;
 
 };
 

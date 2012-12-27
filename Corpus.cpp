@@ -64,9 +64,9 @@ void Corpus::loadDirectory( const string path )
 
 
 /*
- * Track word adjacencies and frequencies.
+ * Compute unique vocabulary and hash of word adjacencies.
  */
-void Corpus::buildVocab( )
+void Corpus::buildLinks( )
 {
 
   // Walk texts.
@@ -76,11 +76,25 @@ void Corpus::buildVocab( )
     // Get text length.
     int len = text->words.size( );
 
-    // Zipper triplets.
+    if( len > 0 )
+    {
+
+      // Add first/last to vocab.
+      vocab.insert( text->words[0] );
+      vocab.insert( text->words[len-1] );
+
+    }
+
     for( int i=1; i<len-1; i++ )
     {
-      vocab[text->words[i]][text->words[i-1]]++;
-      vocab[text->words[i]][text->words[i+1]]++;
+
+      // Register adjacency counts.
+      links[text->words[i]][text->words[i-1]]++;
+      links[text->words[i]][text->words[i+1]]++;
+
+      // Add to vocab.
+      vocab.insert( text->words[i] );
+
     }
 
   }

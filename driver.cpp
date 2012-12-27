@@ -9,13 +9,16 @@
 
 #include "Text.h"
 #include "Corpus.h"
+#include "Circle.h"
 
 int main( )
 {
 
-  Corpus c;
-  c.loadDirectory( "texts" );
-  c.buildVocab( );
+  // Corpus corpus;
+  // corpus.loadDirectory( "texts" );
+  // corpus.buildLinks( );
+
+  Circle circle(60000);
   return 0;
 
 }

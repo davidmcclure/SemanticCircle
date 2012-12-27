@@ -10,6 +10,9 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
 
+#include <vector>
+#include "Corpus.h"
+
 using namespace std;
 
 
@@ -19,7 +22,12 @@ class Circle
   public:
 
     Circle( int count );
-    vector points<float[2]>;
+    vector< vector<double> > points;
+
+  private:
+
+    int count;
+    void generate( );
 
 };
 
