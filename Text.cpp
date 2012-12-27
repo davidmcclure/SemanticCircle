@@ -13,6 +13,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/foreach.hpp>
 #include "Text.h"
+
 using namespace std;
 using namespace boost;
 

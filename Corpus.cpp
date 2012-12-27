@@ -18,6 +18,7 @@
 #include <boost/tokenizer.hpp>
 #include "Text.h"
 #include "Corpus.h"
+
 using namespace std;
 using namespace boost;
 
@@ -78,11 +79,10 @@ void Corpus::buildVocab( )
     // Zipper triplets.
     for( int i=1; i<len-1; i++ )
     {
-      cout << text->words[i-1];
-      cout << text->words[i];
-      cout << text->words[i+1];
-      cout << endl;
+      vocab[text->words[i]][text->words[i-1]]++;
+      vocab[text->words[i]][text->words[i+1]]++;
     }
+
   }
 
 }

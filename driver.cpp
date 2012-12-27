@@ -14,7 +14,7 @@ int main( )
 {
 
   Corpus c;
-  c.loadFile( "texts/test.txt" );
+  c.loadDirectory( "texts" );
   c.buildVocab( );
   return 0;
 

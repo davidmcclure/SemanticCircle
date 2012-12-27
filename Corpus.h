@@ -13,7 +13,11 @@
 #include <vector>
 #include <boost/unordered_map.hpp>
 #include "Text.h"
+
 using namespace std;
+
+typedef unordered_map<string, unordered_map<string, int> >
+  vocabHash;
 
 
 class Corpus
@@ -28,7 +32,7 @@ class Corpus
   private:
 
     vector<Text*> texts;
-    unordered_map<string, vector<string> > vocab;
+    vocabHash vocab;
 
 };
 
