@@ -11,6 +11,7 @@
 #include "Corpus.h"
 #include "Circle.h"
 #include "Loop.h"
+#include "Modeller.h"
 
 void printLoop( Loop* loop );
 
@@ -18,10 +19,11 @@ int main( )
 {
 
   Corpus corpus;
-  corpus.loadFile( "texts/test.txt" );
+  corpus.loadFile( "texts/article.txt" );
   corpus.buildLinks( );
 
-  Loop loop( corpus.vocab );
+  Modeller model( &corpus );
+  model.model( 100 );
 
   return 0;
 

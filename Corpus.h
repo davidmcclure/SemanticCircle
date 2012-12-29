@@ -31,6 +31,7 @@ class Corpus
     void buildLinks( );
 
     vector<Text*> texts;
+    vector<string> words;
     vector<string> vocab;
     link_hash links;
 

@@ -74,28 +74,28 @@ void Corpus::buildLinks( )
   BOOST_FOREACH( Text* text, texts )
   {
 
+    // Add to corpus vector.
+    words.insert( words.end( ), text->words.begin( ),
+        text->words.end( ) );
+
     // Get text length.
     int len = text->words.size( );
 
+    // Add first/last to vocab.
     if( len > 0 )
     {
-
-      // Add first/last to vocab.
+      links[text->words[0]][text->words[1]]++;
+      links[text->words[len-1]][text->words[len-2]]++;
       seen.insert( text->words[0] );
       seen.insert( text->words[len-1] );
-
     }
 
+    // Register adjacency counts.
     for( int i=1; i<len-1; i++ )
     {
-
-      // Register adjacency counts.
       links[text->words[i]][text->words[i-1]]++;
       links[text->words[i]][text->words[i+1]]++;
-
-      // Add to vocab.
       seen.insert( text->words[i] );
-
     }
 
   }
