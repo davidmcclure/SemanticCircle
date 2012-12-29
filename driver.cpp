@@ -10,15 +10,19 @@
 #include "Text.h"
 #include "Corpus.h"
 #include "Circle.h"
+#include "Loop.h"
+
+void printLoop( Loop* loop );
 
 int main( )
 {
 
-  // Corpus corpus;
-  // corpus.loadDirectory( "texts" );
-  // corpus.buildLinks( );
+  Corpus corpus;
+  corpus.loadFile( "texts/test.txt" );
+  corpus.buildLinks( );
 
-  Circle circle(60000);
+  Loop loop( corpus.vocab );
+
   return 0;
 
 }

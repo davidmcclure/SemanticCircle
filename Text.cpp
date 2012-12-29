@@ -38,7 +38,7 @@ void Text::tokenize( string text )
   algorithm::to_lower(text);
 
   // Tokenize.
-  char_separator<char> sep( " ():;,!?./\"*-" );
+  char_separator<char> sep( " ():;,!?./\"*-\n" );
   tokens = new tokenizer< char_separator<char> >( text, sep );
 
   // Push tokens into vector.

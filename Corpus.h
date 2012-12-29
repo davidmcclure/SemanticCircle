@@ -25,14 +25,13 @@ class Corpus
   public:
 
     friend class Circle;
+
     void loadFile( const string path );
     void loadDirectory( const string path );
     void buildLinks( );
 
-  private:
-
     vector<Text*> texts;
-    set<string> vocab;
+    vector<string> vocab;
     link_hash links;
 
 };

@@ -11,7 +11,6 @@
 #include <fstream>
 #include <sstream>
 #include <streambuf>
-#include <iostream>
 #include <algorithm>
 #include <dirent.h>
 #include <boost/foreach.hpp>
@@ -69,6 +68,8 @@ void Corpus::loadDirectory( const string path )
 void Corpus::buildLinks( )
 {
 
+  set<string> seen;
+
   // Walk texts.
   BOOST_FOREACH( Text* text, texts )
   {
@@ -80,8 +81,8 @@ void Corpus::buildLinks( )
     {
 
       // Add first/last to vocab.
-      vocab.insert( text->words[0] );
-      vocab.insert( text->words[len-1] );
+      seen.insert( text->words[0] );
+      seen.insert( text->words[len-1] );
 
     }
 
@@ -93,10 +94,17 @@ void Corpus::buildLinks( )
       links[text->words[i]][text->words[i+1]]++;
 
       // Add to vocab.
-      vocab.insert( text->words[i] );
+      seen.insert( text->words[i] );
 
     }
 
+  }
+
+  // Push vocab to vector.
+  set<string>::iterator itr = seen.begin( );
+  for( itr; itr != seen.end( ); ++itr )
+  {
+    vocab.push_back( *itr );
   }
 
 }
