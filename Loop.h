@@ -23,12 +23,11 @@ class Loop
   public:
 
     Loop( vector<string> words );
-
     unordered_map<string, int> offsets;
     vector<string> words;
-
     void increment( const string word );
     void decrement( const string word );
+    void print( );
 
   private:
 

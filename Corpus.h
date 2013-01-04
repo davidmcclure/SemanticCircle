@@ -33,6 +33,7 @@ class Corpus
     vector<Text*> texts;
     vector<string> words;
     vector<string> vocab;
+    unordered_map<string, int> counts;
     link_hash links;
 
 };

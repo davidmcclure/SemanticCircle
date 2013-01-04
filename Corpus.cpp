@@ -81,21 +81,38 @@ void Corpus::buildLinks( )
     // Get text length.
     int len = text->words.size( );
 
-    // Add first/last to vocab.
+    // First/last.
     if( len > 0 )
     {
+
+      // Increment link counters.
       links[text->words[0]][text->words[1]]++;
       links[text->words[len-1]][text->words[len-2]]++;
+
+      // Add to unique vocabulary.
       seen.insert( text->words[0] );
       seen.insert( text->words[len-1] );
+
+      // Increment word counters.
+      counts[text->words[0]]++;
+      counts[text->words[len-1]]++;
+
     }
 
-    // Register adjacency counts.
+    // Interior words.
     for( int i=1; i<len-1; i++ )
     {
+
+      // Increment link counters.
       links[text->words[i]][text->words[i-1]]++;
       links[text->words[i]][text->words[i+1]]++;
+
+      // Add to unique vocabulary.
       seen.insert( text->words[i] );
+
+      // Increment word counters.
+      counts[text->words[i]]++;
+
     }
 
   }
@@ -106,5 +123,8 @@ void Corpus::buildLinks( )
   {
     vocab.push_back( *itr );
   }
+
+  // Shuffle vocab.
+  random_shuffle( vocab.begin( ), vocab.end( ) );
 
 }

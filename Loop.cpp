@@ -7,6 +7,7 @@
  */
 
 
+#include <iostream>
 #include "Loop.h"
 
 using namespace std;

@@ -89,8 +89,6 @@ double Modeller::totalLinkSum( )
 void Modeller::model( int itr )
 {
 
-  cout << totalLinkSum( ) << endl;
-
   for( int i=0; i<itr; i++ )
   {
 
@@ -143,11 +141,6 @@ void Modeller::model( int itr )
 
     cout << totalLinkSum( ) << endl;
 
-  }
-
-  for( int i=0; i<loop->words.size( ); i++ )
-  {
-    cout << loop->words[i] << endl;
   }
 
 }
