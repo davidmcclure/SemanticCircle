@@ -9,8 +9,11 @@
 
 #include "math.h"
 #include "Modeller.h"
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_int.hpp>
+#include <boost/random/variate_generator.hpp>
 
-using namespace std;
+boost::mt19937 gen;
 
 
 /*
@@ -25,12 +28,11 @@ Modeller::Modeller( Corpus* corpus ) : corpus( corpus )
 
 
 /*
- * For some given word, compute the sum of the link segments
- * for all adjacent words.
+ * Compute the sum of the link segments for a word.
  * @param string word: The word.
  * @return double sum: The link sum.
  */
-double Modeller::sumWordLinks( string word )
+double Modeller::linkSum( string word )
 {
 
   double sum = 0;
@@ -52,6 +54,17 @@ double Modeller::sumWordLinks( string word )
 
   return sum;
 
+}
+
+
+/*
+ * Compute the word count divided by the total link length.
+ * @param string word: The word.
+ * @return double len: The average length.
+ */
+double Modeller::averageLinkLength( string word )
+{
+  return linkSum( word ) / corpus->counts[word];
 }
 
 
@@ -98,12 +111,12 @@ void Modeller::model( int itr )
     {
 
       // Wiggle to get spin direction.
-      double curr = sumWordLinks( *itr );
+      double curr = linkSum( *itr );
       loop->increment( *itr );
-      double next = sumWordLinks( *itr );
+      double next = linkSum( *itr );
       loop->decrement( *itr );
       loop->decrement( *itr );
-      double prev = sumWordLinks( *itr );
+      double prev = linkSum( *itr );
       loop->increment( *itr );
 
       // Word is optimally positioned.
@@ -118,7 +131,7 @@ void Modeller::model( int itr )
         for( int j=0; j<corpus->vocab.size( ); j++ )
         {
           loop->increment( *itr );
-          double val = sumWordLinks( *itr );
+          double val = linkSum( *itr );
           if( val > curr ) break;
           curr = val;
         }
@@ -130,7 +143,7 @@ void Modeller::model( int itr )
         for( int j=0; j<corpus->vocab.size( ); j++ )
         {
           loop->decrement( *itr );
-          double val = sumWordLinks( *itr );
+          double val = linkSum( *itr );
           if( val > curr ) break;
           curr = val;
         }
@@ -139,10 +152,62 @@ void Modeller::model( int itr )
 
     }
 
-    cout << totalLinkSum( ) << endl;
+  }
+
+}
+
+
+/*
+ * Model the circle via randow swapping.
+ * @param int itr: The number of iterations.
+ */
+void Modeller::swap( int itr )
+{
+
+  // Cache loop size.
+  int size = loop->words.size( )-1;
+
+  // Get starting length.
+  double curr = totalLinkSum( );
+
+  for( int i=0; i<itr; i++ )
+  {
+
+    // Get random indices.
+    int i1 = _r( 0, size );
+    int i2 = _r( 0, size );
+
+    // Get starting sums.
+    double sum1a = linkSum( loop->words[i1] );
+    double sum2a = linkSum( loop->words[i2] );
+
+    // Swap, recompute.
+    loop->swap( i1, i2 );
+    double sum1b = linkSum( loop->words[i2] );
+    double sum2b = linkSum( loop->words[i1] );
+
+    // Unswap if larger.
+    if( !((sum1b-sum1a)+(sum2b-sum2a)<0) )
+    {
+      loop->swap( i1, i2 );
+    }
 
   }
 
+}
+
+
+/*
+ * Print the circle.
+ */
+void Modeller::print( )
+{
+  for( int i=0; i<loop->words.size( ); i++ )
+  {
+    cout << loop->words[i] << " ";
+    cout << circle->points[i][0] << " ";
+    cout << circle->points[i][1] << endl;
+  }
 }
 
 
@@ -151,9 +216,24 @@ void Modeller::model( int itr )
  * @param vector<double> p1: The first point.
  * @param vector<double> p2: The second point.
  */
-double _d(vector<double> p1, vector<double> p2)
+double _d( vector<double> p1, vector<double> p2 )
 {
   double dx = p1[0] - p2[0];
   double dy = p1[1] - p2[1];
   return sqrt( pow( dx,2 ) + pow( dy,2 ) );
+}
+
+
+/*
+ * Generate a random number in a range.
+ * @param int min: The low boundary.
+ * @param int max: The high boundary.
+ * @return int: The number.
+ */
+int _r( int min, int max )
+{
+  boost::uniform_int<> dist( min, max );
+  boost::variate_generator<
+    boost::mt19937&, boost::uniform_int<> > die( gen, dist );
+  return die( );
 }

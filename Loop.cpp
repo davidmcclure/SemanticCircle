@@ -110,3 +110,19 @@ void Loop::decrement( const string word )
   }
 
 }
+
+
+/*
+ * Swap two words.
+ * @param int i1: The first index.
+ * @param int i2: The second index.
+ */
+void Loop::swap( int i1, int i2 )
+{
+  string word1 = words[i1];
+  string word2 = words[i2];
+  words[i1] = word2;
+  words[i2] = word1;
+  offsets[word1] = i2;
+  offsets[word2] = i1;
+}

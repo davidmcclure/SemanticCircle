@@ -27,6 +27,7 @@ class Loop
     vector<string> words;
     void increment( const string word );
     void decrement( const string word );
+    void swap( int i1, int i2 );
     void print( );
 
   private:

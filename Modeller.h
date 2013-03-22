@@ -28,14 +28,18 @@ class Modeller
     Circle* circle;
     Loop* loop;
 
-    double sumWordLinks( string word );
+    double linkSum( string word );
+    double averageLinkLength( string word );
     double totalLinkSum( );
     void model( int itr );
+    void swap( int itr );
+    void print( );
 
 };
 
 
 double _d(vector<double> p1, vector<double> p2);
+int _r(int min, int max);
 
 
 #endif
